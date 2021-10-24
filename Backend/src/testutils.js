@@ -41,13 +41,15 @@ let migrate = async (down) => {
 }
 
 module.exports.syncDB = async () => {
-  await Promise.all(ModelNames.map(async modelName => {
-    await require('./models')[modelName].destroy({
-      truncate: true,
-      cascade: true,
-      hooks: false
-    });
-  }));
+  await migrate(true);
+  await migrate();
+  //await Promise.all(ModelNames.map(async modelName => {
+    //await require('./models')[modelName].destroy({
+      //truncate: true,
+      //cascade: true,
+      //hooks: false
+    //});
+  //}));
 }
 
 module.exports.setup = async () => {
